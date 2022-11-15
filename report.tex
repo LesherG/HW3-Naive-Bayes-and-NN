@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+\title{HW 3}
+\author{Gavin Lesher}
+\date{\today}
+\begin{document}
+    \maketitle
+    \clearpage
+
+    \section*{Q1: Prove Bernoulli Naïve Bayes has a linear \\decision boundary}
+        \begin{flalign}
+            \intertext{First, we start with the original inequality:}
+            1 &< \frac{\theta_1 \prod_{i=1}^d \theta_{i1}^{x_i} (1-\theta_{i1})^{1-x_i}}
+                {\theta_0 \prod_{i=1}^d \theta_{i0}^{x_i} (1-\theta_{i0})^{1-x_i}}
+            \\
+            \intertext{Take the log of both sides:}
+            \quad\log (1) &< \log \left(\frac{\theta_1 \prod_{i=1}^d \theta_{i1}^{x_i} (1-\theta_{i1})^{1-x_i}}
+                {\theta_0 \prod_{i=1}^d \theta_{i0}^{x_i} (1-\theta_{i0})^{1-x_i}}\right)
+            \\
+            \intertext{Group like exponents:}
+            0 &< \log\left(\frac{\theta_1}{\theta_0}\right) + 
+                \log\left(\prod_{i=1}^d \frac{\theta_{i1}}{\theta_{i1}}^{x_i} \frac{1-\theta_{i1}}{1-\theta_{i0}}^{1-x_i}\right)
+            \\
+            0 &< \log\left(\frac{\theta_1}{\theta_0}\right) + 
+                \sum_{i=1}^d (x_i)\log\left(\frac{\theta_{i1}}{\theta_{i0}}\right) + 
+                    (1-x_i)\log\left(\frac{1-\theta_{i1}}{1-\theta_{i0}}\right)
+            \\
+            \intertext{Bernoulli Naïve Bayes in $b + \sum_{i=1}^d x_i w_i > 0$ form:}
+            0 &<  \underbrace{\log\left(\frac{\theta_1}{\theta_0}\right) + 
+                \sum_{i=1}^d \log\left(\frac{1-\theta_{i1}}{1-\theta_{i0}}\right)}_b + 
+                \sum_{i=1}^d x_i 
+                    \underbrace{\left(
+                    \log\left(\frac{\theta_{i1}}{\theta_{i0}}\right) -
+                    \log\left(\frac{1-\theta_{i1}}{1-\theta_{i0}}\right)
+                    \right)}_{w_i}
+        \end{flalign}
+
+
+    \section*{Q2: Duplicate Features in Naïve Bayes}
+        \textbf{First, we will simplify $P(y=1|X_1=x_1) > P(y=0|X_1=x_1)$:}
+        \begin{align}
+            P(y=1|X_1=x_1) &> P(y=0|X_1=x_1)\\
+            \intertext{\qquad Using Baye's rule:}
+            \frac{P(X_1=x_1|y=1)P(y=1)}{P(X_1=x_1)} &>\frac{P(X_1=x_1|y=0)P(y=0)}{P(X_1=x_1)}\\
+            \intertext{\qquad Since $P(y=1) = P(y=0)$:}
+            P(X_1=x_1|y=1) &> P(X_1=x_0|y=0) \label{eq:8}
+        \end{align}
+
+
+        \noindent\textbf{ Next, we prove that $P(y=1|X_1=x_1, X_2=x_2) > P(y=1|X_1=x_1)$:}
+        
+        \begin{align}
+            \intertext{\qquad Baye's Rule:}
+            \frac{P(X_1=x_1, X_2=x_2|y=1)P(y=1)}{P(X_1=x_1, X_2=x_2)} 
+                &> \frac{P(X_1=x_1|y=1)P(y=1)}{P(X_1=x_1)} \\
+            \intertext{\qquad With the naïve bayes assumtion of conditional independence:}
+            \frac{P(X_1=x_1|y=1)P(X_2=x_2|y=1)}{P(X_1=x_1, X_2=x_2)} 
+                &> \frac{P(X_1=x_1|y=1)}{P(X_1=x_1)} \\
+            \frac{P(X_2=x_2|y=1)}{P(X_1=x_1|X_2=x_2)}
+                &> \frac{1}{P(X_1=x_1)}\\
+            \intertext{\qquad Expanding the denominators:}
+            \frac{P(X_2=x_2|y=1)}{\sum_y P(X_1=x_1|y)P(X_2=x_2|y)P(y)} 
+                &> \frac{1}{\sum_y P(X_1=x_1|y)P(y)}\\
+            \intertext{\qquad Because $P(X_2=x_2|y)$ is equivalent to $P(X_1=x_1|y)$, we can treat $X_1$ and $X_2$ terms as the same.}
+            \intertext{\qquad \qquad We flip the fractions for easy manipulation first:}
+            \frac{\sum_y P(X_1=x_1|y)}{1}
+                &> \frac{\sum_y P(X_1=x_1|y)P(X_2=x_2|y)}{P(X_2=x_2|y=1)} \\
+            \intertext{\qquad Which expands to:}
+            P(X_1=x_1|y=0) &+ P(X_1=x_1|y=1)
+                > \nonumber\\ 
+                \frac{P(X_1=x_1|y=0)P(X_2=x_2|y=0)}{P(X_2=x_2|y=1)} &+ \frac{P(X_1=x_1|y=1)P(X_2=x_2|y=1)}{P(X_2=x_2|y=1)} \nonumber \\
+            &\nonumber\\
+            P(X_1=x_1|y=0) &> \frac{P(X_1=x_1|y=0)P(X_2=x_2|y=0)}{P(X_2=x_2|y=1)}\nonumber\\
+            &\nonumber\\
+            P(X_2=x_2|y=1) &> P(X_2=x_2|y=0)
+        \end{align}
+        Which is the equivalence we proved in equation \eqref{eq:8}, and proves the original inequality.
+    
+            
+
+
+
+
+
+
+\end{document}
