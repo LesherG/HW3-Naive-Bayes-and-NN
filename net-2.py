@@ -141,10 +141,9 @@ class LinearLayer:
   # Q3 Implementing Backward Pass for Linear
   #################################################
   def backward(self, grad):
-    raise Exception('Student error: You haven\'t implemented the backward pass for linear yet.')
-    self.grad_weights = #TODO1
-    self.grad_bias = #TODO2
-    return #TODO3
+    self.grad_weights = self.input.T@grad
+    self.grad_bias =  grad.sum(axis=0, keepdims=True)
+    return grad@self.weights.T
     
   def step(self, step_size):
     self.weights -= step_size*self.grad_weights
