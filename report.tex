@@ -94,29 +94,93 @@
 
         \textit{All plots can be found in the Appendix}
 
+    \section*{Q5: ReLU’s and Vanishing Gradients}
+        To start, the 5-layer sigmoid trial did not converge, and had only just started to move at the epoch limit. 
+        With a \textit{much} larger epoch limit, it may be able to converge, but I find this unlikely.
+        The 5-layer sigmoid with an increased step size turned out better than expected, getting a validation accuracy of 80\% at max epoch.
+        The chart is very shaky though, which is most likely the bigger step size and layer number "kicking" the weights and biases around.
+        The ReLU preformed very well, and this is to be expected given what we discussed in class about ReLU being (1) faster than sigmoid (2) able to get weights out of the far ends easier.
+
+        I saw an increased preformance for the greater learning rate more than likely because of the "kicking" mentioned earlier. 
+        The step size is able to make larger changes, which might "kick-start" other weights to converge into a more useful value, 
+        though this is mainly speculation.
+
+        As mentioned, the ReLU activation function's advantages allowed it to outpreform the sigmoid undeniably. 
+        If the sigmoid trial was ran with a higher epoch count, it may be able to reach an even better accuracy, as well as having potential by changing the other hyperparameters to suit it better.
+
+    \section*{Q6: Measuring Randomness}
+        \begin{center}
+            \begin{tabular}{|c||c|c|}
+                \hline
+                Seed & Training Accuracy & Validation Accuracy\\
+                 & (\%)& (\%)\\
+                \hline
+                \hline
+                0 & 86.86 & 89.8\\
+                \hline
+                1 & 86.04 & 88.7\\
+                \hline
+                2 & 87.48 & 90.5\\
+                \hline
+                3 & 86.78 & 88.5\\
+                \hline
+                4 & 87.06 & 89.6\\
+                \hline
+                Average & 86.84 & 89.42\\
+                \hline
+            \end{tabular}
+        \end{center}
+
+        It appears the randomness has little to no effect on the results of the training, and this data does not change any of my previous answers.
+
+    \section*{Debrief}
+        \subsection*{1.}
+        I spent about 3 hrs. on the math section, and another 3 on the coding (including the time for writing this report).
+
+        \subsection*{2.}
+        I would rate this easy-moderate. The math had a few hiccups, but the coding was light so I found this to be an easier assignment than previous ones.
+
+        \subsection*{3.}
+        I worked alone on this assignment.
+
+        \subsection*{4.}
+        I have about a 90-95\% confidence on this material. Some of the inner workings of backpropogation I'm not super clear on, but overall I have few questions.
 
 
     \clearpage
     \section*{Appendix}
         \begin{figure}[h]
-            \includegraphics[width=\textwidth]{"Figure_0001.png"}
+            \includegraphics[width=\textwidth]{"SS_0001.png"}
             \caption{Step Size 0.0001}
         \end{figure}
         \begin{figure}[h!]
-            \includegraphics[width=\textwidth]{"Figure_01.png"}
+            \includegraphics[width=\textwidth]{"SS_01.png"}
             \caption{Step Size 0.01 (Default)}
         \end{figure}
         \begin{figure}[t]
-            \includegraphics[width=\textwidth]{"Figure_5.png"}
+            \includegraphics[width=\textwidth]{"SS_5.png"}
             \caption{Step Size 5}
         \end{figure}
         \begin{figure}[b]
-            \includegraphics[width=\textwidth]{"Figure_10.png"}
+            \includegraphics[width=\textwidth]{"SS_10.png"}
             \caption{Step Size 10}
         \end{figure}
         \clearpage
+        \begin{figure}[h]
+            \includegraphics[width=\textwidth]{"L_5_Sig.png"}
+            \caption{5-Layer Sigmoid Activation}
+        \end{figure}
+        \begin{figure}[h!]
+            \includegraphics[width=\textwidth]{"L_5_SS_p1.png"}
+            \caption{5-Layer Sigmoid with Step Size 0.1}
+        \end{figure}
+        \begin{figure}[h]
+            \includegraphics[width=\textwidth]{"L_5_ReLU.png"}
+            \caption{5-Layer ReLU Activation}
+        \end{figure}
+        \clearpage
 
-        
+
 
 
 
