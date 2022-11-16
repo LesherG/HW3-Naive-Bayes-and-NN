@@ -19,7 +19,7 @@ batch_size = 200
 max_epochs = 200
 
 # GLOBAL PARAMETERS FOR NETWORK ARCHITECTURE
-number_of_layers = 2
+number_of_layers = 5
 width_of_layers = 16  # only matters if number of layers > 1
 activation = "ReLU" if False else "Sigmoid" 
 
